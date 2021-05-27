@@ -217,7 +217,7 @@ stage('Run Tests In Package Dev Org') {
                 printf rmsg
                 println('Hello from a Job DSL script!')
                 println(rmsg)
-        mail bcc: '', body: 'Dev stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com,gaurav.sh@yash.com'
+        mail bcc: '', body: 'Dev stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
             }
             }
         }
@@ -225,7 +225,7 @@ stage('Run Tests In Package Dev Org') {
 	catch (err) {
         		echo "Caught: ${err}"
         		currentBuild.result = 'FAILURE'
-	   mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com,gaurav.sh@yash.com'
+	   mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
 			}
 
 	  try{
