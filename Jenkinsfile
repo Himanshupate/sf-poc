@@ -194,23 +194,22 @@ stage('Run Tests In Package Dev Org') {
 }
                 // need to pull out assigned username
                 if (isUnix()) {
-                    rmsg += bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
+                    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
                 }else{
-                         rmsg += "Hi1......................"       
-			rmsg += bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
+                         rmsg = "Hi1......................"       
+			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			try{
-                                 rmsg += "Hi2......................"  
-				print "New RMSG - "+rmsg
+                                print "New RMSG - "+rmsg
 				jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+21)
 				print 'Job Id - '+jobid
 				//rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -i "+jobid+" -u ${HUB_ORG_DH_dev} --json"  //rmsg
-				rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"  //rmsg
+				rmsg1 =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"  //rmsg
 			}
 			catch(error){
-				print "message - "+rmsg
+				print "message - "+rmsg1
 			}
 			print "Out of The try" 
-			print rmsg
+			print rmsg1
 //                          	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
 //                                     def object = readJSON text: rmsg                                   
 //                                     if (object.result.done) 
