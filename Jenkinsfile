@@ -196,12 +196,14 @@ stage('Run Tests In Package Dev Org') {
                 if (isUnix()) {
                     rmsg += bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
                 }else{
-                             rmsg += bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
+                         rmsg += "Hi1......................"       
+			rmsg += bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			try{
-                                   rmsg +=  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report  -u ${HUB_ORG_DH_dev} --json"  //rmsg
+                                 rmsg += "Hi2......................"  
+				rmsg +=  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report  -u ${HUB_ORG_DH_dev} --json"  //rmsg
 			}
 			catch(error){
-				print rmsg
+				print "message - "+rmsg
 			 	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
                                     def object = readJSON text: rmsg                                   
                                     if (object.result.done) 
