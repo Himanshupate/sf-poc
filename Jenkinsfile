@@ -201,10 +201,10 @@ stage('Run Tests In Package Dev Org') {
                              rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			try{
                                     rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report  -u ${HUB_ORG_DH_dev} --json"  //rmsg
+				    print rmsg
 			}
 			catch(err){
-			
-			print err;
+				print err
 			}
                                     rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
                                     def object = readJSON text: rmsg                                   
