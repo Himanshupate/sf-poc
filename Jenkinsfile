@@ -204,13 +204,13 @@ stage('Run Tests In Package Dev Org') {
 				jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+21)
 				print 'Job Id - '+jobid
 				//rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -i "+jobid+" -u ${HUB_ORG_DH_dev} --json"  //rmsg
-				rmsg1 =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"  //rmsg
+				rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"  //rmsg
 			}
 			catch(error){
-				print "message - "+rmsg1
+				print "message - error"
 			}
 			print "Out of The try" 
-			print rmsg1
+			print rmsg
 //                          	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
 //                                     def object = readJSON text: rmsg                                   
 //                                     if (object.result.done) 
