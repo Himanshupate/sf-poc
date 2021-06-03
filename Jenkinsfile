@@ -192,20 +192,14 @@ stage('Run Tests In Package Dev Org') {
 }
     
 }
-    
-
                 // need to pull out assigned username
                 if (isUnix()) {
                     rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
                 }else{
                              rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
-			try{
-                                    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report  -u ${HUB_ORG_DH_dev} --json"  //rmsg
-				    print rmsg
-			}
-			catch(err){
-				print err
-			}
+                    
+                                   rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report  -u ${HUB_ORG_DH_dev} --json"  //rmsg
+			if {    
                                     rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
                                     def object = readJSON text: rmsg                                   
                                     if (object.result.done) 
@@ -215,7 +209,21 @@ stage('Run Tests In Package Dev Org') {
                                      else
                                     {
                                         sleep(3000)   //sleep
-                                    }   
+                                    }
+			}
+			else 
+			{
+			  rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
+                                    def object = readJSON text: rmsg                                   
+                                    if (object.result.done) 
+                                    {
+                                         print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                    }
+                                     else
+                                    {
+                                        sleep(3000)   //sleep
+                                    }
+			}
                 }
               
                 printf rmsg
@@ -227,9 +235,7 @@ stage('Run Tests In Package Dev Org') {
         }
          }
 	catch (err) {
-		
-		
-        		echo "Caught: ${err}"
+			echo "Caught: ${err}"
         		currentBuild.result = 'FAILURE'
 	   mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
 			}
