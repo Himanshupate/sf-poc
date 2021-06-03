@@ -202,7 +202,7 @@ stage('Run Tests In Package Dev Org') {
                                  rmsg += "Hi2......................"  
 				jobid = rmsg.substring(rmsg.indexOf('|')+2, 21)
 				print 'Job Id - '+jobid
-				rmsg +=  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -i "+jobid+" -u ${HUB_ORG_DH_dev} --json"  //rmsg
+				//rmsg +=  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -i "+jobid+" -u ${HUB_ORG_DH_dev} --json"  //rmsg
 			}
 			catch(error){
 				print "message - "+rmsg
