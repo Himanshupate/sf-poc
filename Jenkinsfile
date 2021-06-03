@@ -196,7 +196,8 @@ stage('Run Tests In Package Dev Org') {
                 if (isUnix()) {
                     rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
                 }else{
-                         rmsg = "Hi1......................"       
+                        def rmsg = "Hi1......................"       
+			def rmsg1
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			try{
                                 print "New RMSG - "+rmsg
