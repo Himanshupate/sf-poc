@@ -209,7 +209,8 @@ stage('Run Tests In Package Dev Org') {
 			catch(error){
 				print "message - "+rmsg
 			}
-			print "Out of The try"
+			print "Out of The try" 
+			print rmsg
 //                          	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
 //                                     def object = readJSON text: rmsg                                   
 //                                     if (object.result.done) 
