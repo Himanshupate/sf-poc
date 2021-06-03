@@ -223,6 +223,17 @@ stage('Run Tests In Package Dev Org') {
         }
          }
 	catch (err) {
+		rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
+                                    def object = readJSON text: rmsg                                   
+                                    if (object.result.done) 
+                                    {
+                                         print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                    }
+                                     else
+                                    {
+                                        sleep(3000)   //sleep
+                                    }  
+		
         		echo "Caught: ${err}"
         		currentBuild.result = 'FAILURE'
 	   mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
