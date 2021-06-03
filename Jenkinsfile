@@ -197,7 +197,7 @@ stage('Run Tests In Package Dev Org') {
                     rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
                 }else{
                         def rmsg = "Hi1......................"       
-			def rmsg1
+			
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			try{
                                 print "New RMSG - "+rmsg
@@ -207,20 +207,19 @@ stage('Run Tests In Package Dev Org') {
 				rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"  //rmsg
 			}
 			catch(error){
-				print "message - error"
+				print "message - "+error
 			}
-			print "Out of The try" 
 			print rmsg
-//                          	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
-//                                     def object = readJSON text: rmsg                                   
-//                                     if (object.result.done) 
-//                                     {
-//                                          print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
-//                                     }
-//                                      else
-//                                     {
-//                                         sleep(3000)   //sleep
-//                                     }
+                         	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
+                                    def object = readJSON text: rmsg                                   
+                                    if (object.result.done) 
+                                    {
+                                         print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                    }
+                                     else
+                                    {
+                                        sleep(3000)   //sleep
+                                    }
 			
                 }
               
