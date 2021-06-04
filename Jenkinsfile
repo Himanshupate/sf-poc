@@ -210,6 +210,7 @@ stage('Run Tests In Package Dev Org') {
 			}
 			catch(error){
 				print "Error message - "+error
+				print "Error message - "+rmsg
 			}
 			print "After Error catch - "+rmsg
                          	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
