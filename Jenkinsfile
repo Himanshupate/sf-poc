@@ -197,20 +197,18 @@ stage('Run Tests In Package Dev Org') {
                 if (isUnix()) {
                     rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
                 }else{
-                        rmsg = "Hi1......................"       
-			
+                       
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			try{
                                 print "New RMSG - "+rmsg
 				jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
 				print 'Job Id - '+jobid
 				//rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} -i "+ jobid +" --json"  //rmsg
-				rmsg =  bat script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} -i "+ jobid +" --json"  //rmsg
-				//rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"  //rmsg
+				//rmsg +=  bat script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} -i "+ jobid +" --json"  //rmsg
+				rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json -o"  //rmsg
 			}
 			catch(error){
 				print "Error message - "+error
-				print "Error message - "+rmsg
 			}
 			print "After Error catch - "+rmsg
                          	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
