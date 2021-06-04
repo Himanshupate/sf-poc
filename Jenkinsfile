@@ -15,6 +15,7 @@ node {
     def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
     def SFDC_USERNAME
     def TEST_LEVEL
+    def rmsg
 
    // def HUB_ORG_uat=env.HUB_ORG_DH_uat
 	def HUB_ORG_dev=env.HUB_ORG_DH_dev
@@ -196,7 +197,7 @@ stage('Run Tests In Package Dev Org') {
                 if (isUnix()) {
                     rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
                 }else{
-                        def rmsg = "Hi1......................"       
+                        rmsg = "Hi1......................"       
 			
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			try{
