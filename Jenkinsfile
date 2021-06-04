@@ -201,9 +201,9 @@ stage('Run Tests In Package Dev Org') {
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			try{
                                 print "New RMSG - "+rmsg
-				jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+21)
+				jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
 				print 'Job Id - '+jobid
-				rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} -i "+jobid+" --json"  //rmsg
+				rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} -i "+ jobid +" --json"  //rmsg
 				//rmsg =  bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"  //rmsg
 			}
 			catch(error){
