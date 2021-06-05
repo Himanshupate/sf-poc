@@ -199,8 +199,7 @@ stage('Run Tests In Package Dev Org') {
                        
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			print ("line 201")
-			sleep(300) 
-                        rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"
+		        rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json IF %ERRORLEVEL% EQU 1 (exit /B 0)"
 			print(rmsg)
 			print ("line 203")
 			   rmsg = rmsg.substring(rmsg.indexOf('{')) 
