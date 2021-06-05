@@ -198,27 +198,26 @@ stage('Run Tests In Package Dev Org') {
                 }else{
                        
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
-			try{
-                                print "New RMSG - "+rmsg
-				jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
-				print 'Job Id - '+jobid
-				bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} -i "+ jobid +" --json"
+			
+                        rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"
+			   rmsg = rmsg.substring(rmsg.indexOf('{')) 
+				//jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
+				//print 'Job Id - '+jobid
 				
-			}
-			catch(error){
-				print "Error message - "+error
-			}
-			print "After Error catch - "+rmsg
-                         	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
-                                    def object = readJSON text: rmsg                                   
-                                    if (object.result.done) 
-                                    {
-                                         print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
-                                    }
-                                     else
-                                    {
-                                        sleep(3000)   //sleep
-                                    }
+				
+			
+			//print "After Error catch - "+rmsg
+                         //	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
+                                    def object = readJSON text: rmsg  
+			 print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                 //if (object.result.done) 
+                                    //{
+                                      //   print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                    //}
+                                     //else
+                                    //{
+                                    //    sleep(3000)   //sleep
+                                  //  } 
                 }
               
                 printf rmsg
