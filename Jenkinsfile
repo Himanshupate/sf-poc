@@ -199,7 +199,8 @@ stage('Run Tests In Package Dev Org') {
                        
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			print ("line 201")
-		        rmsg = bat returnStdout: false, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"			                                   
+		        rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json"	
+			  println(stdout)
 			print(rmsg)
 			print ("line 203")
 			   rmsg = rmsg.substring(rmsg.indexOf('{')) 
@@ -235,6 +236,8 @@ stage('Run Tests In Package Dev Org') {
 			echo "Caught: ${err}"
 		
 		  echo 'Detailed error is- ' + err.toString()
+		print ("standard output")
+		 println(stdout)
 		print(rmsg)
         	//currentBuild.result = 'FAILURE'
 	 // mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
