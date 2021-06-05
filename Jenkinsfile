@@ -235,8 +235,9 @@ stage('Run Tests In Package Dev Org') {
 			echo "Caught: ${err}"
 		
 		  echo 'Detailed error is- ' + err.toString()
-        		//currentBuild.result = 'FAILURE'
-	 //  mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
+		print(rmsg)
+        	//currentBuild.result = 'FAILURE'
+	 // mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
 			}
 
 	  try{
