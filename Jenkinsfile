@@ -200,7 +200,7 @@ stage('Run Tests In Package Dev Org') {
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			print ("line 201")
 		        rmsg = bat (returnStdout: true,
-				    script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json")
+				    script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json || exit 0")
 			  
 			print(rmsg)
 			print ("line 203")
