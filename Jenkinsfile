@@ -199,8 +199,9 @@ stage('Run Tests In Package Dev Org') {
                        
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			print ("line 201")
-		        rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json + exit 0"	
-			  println(stdout)
+		        rmsg = bat (returnStdout: true,
+				    script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json")
+			  
 			print(rmsg)
 			print ("line 203")
 			   rmsg = rmsg.substring(rmsg.indexOf('{')) 
@@ -226,7 +227,7 @@ stage('Run Tests In Package Dev Org') {
                 printf rmsg
                 println('Hello from a Job DSL script!')
                 println(rmsg)
-        mail bcc: '', body: 'Dev stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
+      //  mail bcc: '', body: 'Dev stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
             }
             }
         }
@@ -237,7 +238,7 @@ stage('Run Tests In Package Dev Org') {
 		
 		  echo 'Detailed error is- ' + err.toString()
 		print ("standard output")
-		 println(stdout)
+		 println(Stdout)
 		print(rmsg)
         	//currentBuild.result = 'FAILURE'
 	 // mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
