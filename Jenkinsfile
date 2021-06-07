@@ -1,4 +1,4 @@
-import groovy.json.JsonSlurperClassic
+
 import groovy.json.JsonSlurperClassic
 import net.sf.json.JSONSerializer
 import groovy.json.JsonSlurper
@@ -15,7 +15,8 @@ node {
     def RUN_ARTIFACT_DIR="tests/${BUILD_NUMBER}"
     def SFDC_USERNAME
     def TEST_LEVEL
-
+    //def rmsg1 = '{ "status": 1, "result": { "checkOnly": false, "completedDate": "2021-06-04T05:39:08.000Z", "createdBy": "0055g0000039y5l", "createdByName": "Himanshu Patel", "createdDate": "2021-06-04T05:39:07.000Z", "details": { "componentFailures": [ { "changed": "false", "componentType": "LightningComponentBundle", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./lwc/helloworld/helloworld.js", "fullName": "helloworld", "problem": "Unable to find Apex action class referenced as \'abc\'.", "problemType": "Error", "success": "false" } ], "componentSuccesses": [ { "changed": "false", "componentType": "ApexClass", "created": "false", "createdDate": "2021-06-04T05:39:07.000Z", "deleted": "false", "fileName": "./classes/helloworld.cls", "fullName": "helloworld", "id": "01p5g000009eJ1NAAU", "success": "true" }, { "changed": "true", "componentType": "", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./package.xml", "fullName": "package.xml", "success": "true" }, { "changed": "true", "componentType": "LightningComponentBundle", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./lwc/testComponent", "fullName": "testComponent", "id": "0Rb5g000000DC8pCAG", "success": "true" }, { "changed": "false", "componentType": "ApexClass", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./classes/helloworldtest.cls", "fullName": "helloworldtest", "id": "01p5g000009eJ1OAAU", "success": "true" }, { "changed": "true", "componentType": "LightningComponentBundle", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./lwc/helloworld", "fullName": "helloworld", "id": "0Rb5g000000D4zsCAC", "success": "true" } ], "runTestResult": { "numFailures": "0", "numTestsRun": "0", "totalTime": "0.0" } }, "done": true, "id": "0Af5g00000EvoQACAZ", "ignoreWarnings": false, "lastModifiedDate": "2021-06-04T05:39:08.000Z", "numberComponentErrors": 1, "numberComponentsDeployed": 4, "numberComponentsTotal": 5, "numberTestErrors": 0, "numberTestsCompleted": 0, "numberTestsTotal": 0, "rollbackOnError": true, "runTestsEnabled": false, "startDate": "2021-06-04T05:39:07.000Z", "status": "Failed", "success": false }, "name": "mdapiDeployFailed", "message": "The metadata deploy operation failed.", "exitCode": 1, "commandName": "MdapiDeployReportCommand", "data": { "checkOnly": false, "completedDate": "2021-06-04T05:39:08.000Z", "createdBy": "0055g0000039y5l", "createdByName": "Himanshu Patel", "createdDate": "2021-06-04T05:39:07.000Z", "details": { "componentFailures": [ { "changed": "false", "componentType": "LightningComponentBundle", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./lwc/helloworld/helloworld.js", "fullName": "helloworld", "problem": "Unable to find Apex action class referenced as \'abc\'.", "problemType": "Error", "success": "false" } ], "componentSuccesses": [ { "changed": "false", "componentType": "ApexClass", "created": "false", "createdDate": "2021-06-04T05:39:07.000Z", "deleted": "false", "fileName": "./classes/helloworld.cls", "fullName": "helloworld", "id": "01p5g000009eJ1NAAU", "success": "true" }, { "changed": "true", "componentType": "", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./package.xml", "fullName": "package.xml", "success": "true" }, { "changed": "true", "componentType": "LightningComponentBundle", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./lwc/testComponent", "fullName": "testComponent", "id": "0Rb5g000000DC8pCAG", "success": "true" }, { "changed": "false", "componentType": "ApexClass", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./classes/helloworldtest.cls", "fullName": "helloworldtest", "id": "01p5g000009eJ1OAAU", "success": "true" }, { "changed": "true", "componentType": "LightningComponentBundle", "created": "false", "createdDate": "2021-06-04T05:39:08.000Z", "deleted": "false", "fileName": "./lwc/helloworld", "fullName": "helloworld", "id": "0Rb5g000000D4zsCAC", "success": "true" } ], "runTestResult": { "numFailures": "0", "numTestsRun": "0", "totalTime": "0.0" } }, "done": true, "id": "0Af5g00000EvoQACAZ", "ignoreWarnings": false, "lastModifiedDate": "2021-06-04T05:39:08.000Z", "numberComponentErrors": 1, "numberComponentsDeployed": 4, "numberComponentsTotal": 5, "numberTestErrors": 0, "numberTestsCompleted": 0, "numberTestsTotal": 0, "rollbackOnError": true, "runTestsEnabled": false, "startDate": "2021-06-04T05:39:07.000Z", "status": "Failed", "success": false }}'
+	
    // def HUB_ORG_uat=env.HUB_ORG_DH_uat
 	def HUB_ORG_dev=env.HUB_ORG_DH_dev
 	def HUB_ORG_prod=env.HUB_ORG_DH_prod
@@ -192,40 +193,51 @@ stage('Run Tests In Package Dev Org') {
 }
     
 }
-    
-
                 // need to pull out assigned username
                 if (isUnix()) {
                     rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
                 }else{
-                             rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
-                    
-                                    rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report  -u ${HUB_ORG_DH_dev} --json"  //rmsg
-                                    
-                                    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
-                                    def object = readJSON text: rmsg                                   
-                                    if (object.result.done) 
+                       
+			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
+			print ("line 201")
+			jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
+			print 'Job Id - '+jobid
+		        rmsg = bat (returnStdout: true,
+				    script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json || exit 0")
+			  
+			print(rmsg)
+			print ("line 203")
+			   rmsg = rmsg.substring(rmsg.indexOf('{')) 
+				                              
+                                 def object = readJSON text: rmsg  
+                                 if (object.result.done) 
                                     {
-                                         print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                        print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
                                     }
                                      else
                                     {
-                                        sleep(3000)   //sleep
-                                    }   
+                                       sleep(3000)   //sleep
+                                   } 
                 }
               
                 printf rmsg
                 println('Hello from a Job DSL script!')
                 println(rmsg)
-        mail bcc: '', body: 'Dev stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com,gaurav.sh@yash.com'
+      //  mail bcc: '', body: 'Dev stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
             }
             }
         }
          }
-	catch (err) {
-        		echo "Caught: ${err}"
-        		currentBuild.result = 'FAILURE'
-	   mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com,gaurav.sh@yash.com'
+	catch (err) {  
+		print("inside catch at line 234")
+			echo "Caught: ${err}"
+		
+		  echo 'Detailed error is- ' + err.toString()
+		print ("standard output")
+		 println(Stdout)
+		print(rmsg)
+        	//currentBuild.result = 'FAILURE'
+	 // mail bcc: '', body: 'Dev stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
 			}
 
 	  try{
