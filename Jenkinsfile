@@ -177,6 +177,7 @@ import groovy.json.*
               }
 
             }
+
             // need to pull out assigned username
             if (isUnix()) {
               rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
@@ -200,9 +201,17 @@ import groovy.json.*
                 sleep(3000) //sleep
               }
             }
+
+
             printf rmsg
             println('Hello from a Job DSL script!')
             println(rmsg)
+
+            mail bcc: '', body: 'prod deployment stage is successful', cc: 'patel.himanshu@yash.com', from: '', replyTo: '', subject: 'successful job', to: 'raghav.soni@yash.com'
+
+          }
+        }
+      }}
             //  mail bcc: '', body: 'Dev stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
           }
         }
@@ -308,7 +317,9 @@ import groovy.json.*
 
           }
         }
-      }}
+
+      }
+    }
       catch (err) {
         echo "Caught: ${err}"
         currentBuild.result = 'FAILURE'
