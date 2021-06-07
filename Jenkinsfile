@@ -312,7 +312,7 @@ import groovy.json.*
         }
 
       }
-
+    }
       catch (err) {
         echo "Caught: ${err}"
         currentBuild.result = 'FAILURE'
