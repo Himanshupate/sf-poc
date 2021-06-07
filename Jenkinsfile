@@ -13,7 +13,7 @@ import groovy.json.*
     def RUN_ARTIFACT_DIR = "tests/${BUILD_NUMBER}"
     def SFDC_USERNAME
     def TEST_LEVEL
-   
+
     // def HUB_ORG_uat=env.HUB_ORG_DH_uat
     def HUB_ORG_dev = env.HUB_ORG_DH_dev
     def HUB_ORG_prod = env.HUB_ORG_DH_prod
@@ -200,7 +200,6 @@ import groovy.json.*
                 sleep(3000) //sleep
               }
             }
-
             printf rmsg
             println('Hello from a Job DSL script!')
             println(rmsg)
@@ -309,7 +308,6 @@ import groovy.json.*
 
           }
         }
-
       }}
       catch (err) {
         echo "Caught: ${err}"
