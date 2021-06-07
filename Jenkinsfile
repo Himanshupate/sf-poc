@@ -1,3 +1,4 @@
+
 import groovy.json.JsonSlurperClassic
 import net.sf.json.JSONSerializer
 import groovy.json.JsonSlurper
@@ -106,24 +107,32 @@ stage('Run Tests In Package UAT Org') {
 					rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_uat}"
 				}else{
 			   	rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_uat}"
-				  rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report  -u ${HUB_ORG_DH_uat} --json"  //rmsg
-                                    
-                                    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
-                                    def object = readJSON text: rmsg                                   
-                                    if (object.result.done) 
+			print ("line 201")
+			jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
+			print 'Job Id - '+jobid
+		        rmsg = bat (returnStdout: true,
+				    script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_uat} -i "+jobid+" --json || exit 0") 
+			  
+			print(rmsg)
+			print ("line 203")
+			   rmsg = rmsg.substring(rmsg.indexOf('{')) 
+				                              
+                                 def object = readJSON text: rmsg  
+                                 if (object.result.done) 
                                     {
-                                         print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                        print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
                                     }
                                      else
                                     {
-                                        sleep(3000)   //sleep
-                                    }   
+                                       sleep(3000)   //sleep
+				    }
                 }
+              
 			  
             	printf rmsg
             	println('Hello from a Job DSL script!')
             	println(rmsg)
-		mail bcc: '', body: 'UAT stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
+		mail bcc: '', body: 'UAT stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com,gaurav.sh@yash.com'
 			}
 		    }
 		}
@@ -131,7 +140,7 @@ stage('Run Tests In Package UAT Org') {
 	catch (err) {
         		echo "Caught: ${err}"
         		currentBuild.result = 'FAILURE'
-	   mail bcc: '', body: 'UAT stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
+	   mail bcc: '', body: 'UAT stage has Failed with error - '+err+'-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Failed job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com,gaurav.sh@yash.com'
 			}
   
   try{
@@ -199,29 +208,24 @@ stage('Run Tests In Package Dev Org') {
                        
 			rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
 			print ("line 201")
+			jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
+			print 'Job Id - '+jobid
 		        rmsg = bat (returnStdout: true,
-				    script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} --json || exit 0")
+				    script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} -i "+jobid+" --json || exit 0") 
 			  
 			print(rmsg)
 			print ("line 203")
 			   rmsg = rmsg.substring(rmsg.indexOf('{')) 
-				//jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
-				//print 'Job Id - '+jobid
-				
-				
-			
-			//print "After Error catch - "+rmsg
-                         //	    rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
-                                    def object = readJSON text: rmsg  
-			 print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
-                                 //if (object.result.done) 
-                                    //{
-                                      //   print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
-                                    //}
-                                     //else
-                                    //{
-                                    //    sleep(3000)   //sleep
-                                  //  } 
+				                              
+                                 def object = readJSON text: rmsg  
+                                 if (object.result.done) 
+                                    {
+                                        print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                    }
+                                     else
+                                    {
+                                       sleep(3000)   //sleep
+                                   } 
                 }
               
                 printf rmsg
@@ -313,22 +317,28 @@ stage('Run Tests In Package Prod Org') {
   // send to email
 						timeout(time: 10, unit: "MINUTES") {
 						mail bcc: '', body: 'Please go to the link to approve or Reject the deployment-'+final_url,  cc: 'saurabh.aglave@yash.com', from: '', replyTo: '', subject: 'Prod deployment approval request', to: 'gs14701@gmail.com'
-						input "Deploy to prod?"
-		     				 rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_prod}"
-				                  rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy:report  -u ${HUB_ORG_DH_prod} --json"  //rmsg
-				          rmsg = rmsg.substring(rmsg.indexOf('{'))                                  
-                                    def object = readJSON text: rmsg                                   
-                                    if (object.result.done) 
+							rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_prod}"
+			print ("line 201")
+			jobid = rmsg.substring(rmsg.indexOf('|')+2, rmsg.indexOf('|')+20)
+			print 'Job Id - '+jobid
+		        rmsg = bat (returnStdout: true,
+				    script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_prod} -i "+jobid+" --json || exit 0") 
+			  
+			print(rmsg)
+			print ("line 203")
+			   rmsg = rmsg.substring(rmsg.indexOf('{')) 
+				                              
+                                 def object = readJSON text: rmsg  
+                                 if (object.result.done) 
                                     {
-                                         print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
+                                        print 'S!cr!t_start'+rmsg+'S!cr!t_end' 
                                     }
                                      else
                                     {
-                                        sleep(3000)   //sleep
-                                    }   
-			 			 // rmsg="Prod deployment pretend"
-					}
-					} 
+                                       sleep(3000)   //sleep
+                                   } 
+                }
+              
           		  printf rmsg
            		  println('Hello from a Job DSL script!')
             		  println(rmsg)
