@@ -107,9 +107,9 @@ import groovy.json.*
 
               def object = readJSON text: rmsg
               if (object.result.done) {
-                print 'S!cr!t_start' + rmsg + 'S!cr!t_end'
+                print ' S!cr!t_start ' + rmsg + ' S!cr!t_end '
               } else {
-                sleep(3000) //sleep
+                sleep(3) //sleep
               }
             }
 
@@ -195,9 +195,9 @@ import groovy.json.*
 
               def object = readJSON text: rmsg
               if (object.result.done) {
-                print 'S!cr!t_start' + rmsg + 'S!cr!t_end'
+                print ' S!cr!t_start ' + rmsg + ' S!cr!t_end '
               } else {
-                sleep(3000) //sleep
+                sleep(3) //sleep
               }
             }
             printf rmsg
@@ -295,9 +295,9 @@ import groovy.json.*
 
               def object = readJSON text: rmsg
               if (object.result.done) {
-                print 'S!cr!t_start' + rmsg + 'S!cr!t_end'
+                print 'S!cr!t_start ' + rmsg + ' S!cr!t_end '
               } else {
-                sleep(3000) //sleep
+                sleep(3) //sleep
               }
             }
 
