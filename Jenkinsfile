@@ -96,27 +96,23 @@ import groovy.json.*
               rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_uat}"
             } else {
               rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_uat}"
-              print("line 201")
+              
               jobid = rmsg.substring(rmsg.indexOf('|') + 2, rmsg.indexOf('|') + 20)
-              print 'Job Id - ' + jobid
+             // print 'Job Id - ' + jobid
               rmsg = bat(returnStdout: true,
                 script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_uat} -i " + jobid + " --json || exit 0")
 
-              print(rmsg)
-              print("line 203")
               rmsg = rmsg.substring(rmsg.indexOf('{'))
 
               def object = readJSON text: rmsg
               if (object.result.done) {
-                print 'S!cr!t_start' + rmsg + 'S!cr!t_end'
+                print ' S!cr!t_start ' + rmsg + ' S!cr!t_end '
               } else {
-                sleep(3000) //sleep
+                sleep(3) //sleep
               }
             }
 
-            printf rmsg
             println('Hello from a Job DSL script!')
-            println(rmsg)
             mail bcc: '', body: 'UAT stage is successful-' + final_url, cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com,gaurav.sh@yash.com'
           }
         }
@@ -184,27 +180,22 @@ import groovy.json.*
             } else {
 
               rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_dev}"
-              print("line 201")
+             
               jobid = rmsg.substring(rmsg.indexOf('|') + 2, rmsg.indexOf('|') + 20)
-              print 'Job Id - ' + jobid
+              //print 'Job Id - ' + jobid
               rmsg = bat(returnStdout: true,
                 script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_dev} -i " + jobid + " --json || exit 0")
 
-              print(rmsg)
-              print("line 203")
               rmsg = rmsg.substring(rmsg.indexOf('{'))
 
               def object = readJSON text: rmsg
               if (object.result.done) {
-                print 'S!cr!t_start' + rmsg + 'S!cr!t_end'
+                print ' S!cr!t_start ' + rmsg + ' S!cr!t_end '
               } else {
-                sleep(3000) //sleep
+                sleep(3) //sleep
               }
             }
-
-            printf rmsg
-            println('Hello from a Job DSL script!')
-            println(rmsg)
+          
             //  mail bcc: '', body: 'Dev stage is successful-'+final_url,  cc: 'gaurav007869@gmail.com', from: '', replyTo: '', subject: 'Successful job', to: 'patel.himanshu@yash.com,saurabh.aglave@yash.com'
           }
         }
@@ -285,34 +276,26 @@ import groovy.json.*
             timeout(time: 10, unit: "MINUTES") {
               mail bcc: '', body: 'Please go to the link to approve or Reject the deployment-' + final_url, cc: 'saurabh.aglave@yash.com', from: '', replyTo: '', subject: 'Prod deployment approval request', to: 'gs14701@gmail.com'
               rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d MDAPI_MetaData/. -u ${HUB_ORG_DH_prod}"
-              print("line 201")
+             
               jobid = rmsg.substring(rmsg.indexOf('|') + 2, rmsg.indexOf('|') + 20)
-              print 'Job Id - ' + jobid
+              //print 'Job Id - ' + jobid
               rmsg = bat(returnStdout: true,
                 script: "\"${toolbelt}\" force:mdapi:deploy:report -u ${HUB_ORG_DH_prod} -i " + jobid + " --json || exit 0")
 
-              print(rmsg)
-              print("line 203")
               rmsg = rmsg.substring(rmsg.indexOf('{'))
 
               def object = readJSON text: rmsg
               if (object.result.done) {
-                print 'S!cr!t_start' + rmsg + 'S!cr!t_end'
+                print 'S!cr!t_start ' + rmsg + ' S!cr!t_end '
               } else {
-                sleep(3000) //sleep
+                sleep(3) //sleep
               }
             }
-
-            printf rmsg
-            println('Hello from a Job DSL script!')
-            println(rmsg)
             mail bcc: '', body: 'prod deployment stage is successful', cc: 'patel.himanshu@yash.com', from: '', replyTo: '', subject: 'successful job', to: 'raghav.soni@yash.com'
 
           }
         }
-
-      }
-    }
+      }}
       catch (err) {
         echo "Caught: ${err}"
         currentBuild.result = 'FAILURE'
